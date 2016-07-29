@@ -4,7 +4,7 @@ var api = 'http://api.openeventdatabase.org/event';
 // Pour chaque requête prédéfinie on associe le div destination
 
 var preDefinedEvents =[
-    {"btn":"btn_total_5_min", "glyph":"th-list", "reqDatas":jQuery.param({"when":"last5minutes"}), "layer": L.geoJson()},
+    {"btn":"btn_total_5_min", "glyph":"th-list", "reqDatas":jQuery.param({"when":"last1minutes"}), "layer": L.geoJson()},
     {"btn":"btn_traffic_1_hour", "glyph":"road", "reqDatas":jQuery.param({"when":"last30minutes", "what":"traffic", "near":"2.36,48.85,20000"}), "layer": L.geoJson()},
     {"btn":"btn_nature_2_days", "glyph":"globe", "reqDatas":jQuery.param({"when":"last48hours", "what":"nature"}), "layer": L.geoJson()},
     {"btn":"btn_weather_12_hours", "glyph":"cloud", "reqDatas":jQuery.param({"when":"last12hours", "what":"weather", "near":"2.36,48.85,20000"}), "layer": L.geoJson()},
