@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>OpenEventDatabase - Dashboard</title>
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"/>
+
+        <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+		
+		<link rel="stylesheet" id="icon_stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+        
+        <script src="./Leaflet.Icon.Glyph.js"></script>
+        
+        <link rel="stylesheet" href="./dashboard.css" />
+        <script src="./dashboard.js"></script>
+        <script>
+            var map;
+        </script>
+	</head>
+	<body class="nav-md" onload="init();">
+        <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+                <div class="container topnav">
+                    
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <img src="img/oedb.png" class="navbar-brand topnav" height="120"></img>
+                        <a class="navbar-brand topnav" href="#">OpenEventDatabase</a>
+                    </div>
+                    
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="#about" onclick="updateAllEvents();">
+                                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#clear" onclick="clearAllEvents();">
+                                    <span class="glyphicon glyphicon-erase" aria-hidden="true"></span> Clear
+                                </a>
+                                
+                            </li>
+                            <li>
+                                <a href="#about">About</a>
+                            </li>                            
+                        </ul>
+                        
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container -->
+            </nav>	    
+		<div class="container" style="">
+			<div class="main_container">
+			    <div class="row title">
+			        <div class="col-md-12">
+                        Live Open Event Database
+                    </div>
+			    </div>
+				<div class="row stats">
+					<div class="col-md-2" id="btn_total_5_min">
+						<div class="what">
+						      <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+						      <span class="value">Total</span>
+                        </div>
+						<div class="count">-</div>
+						<div class="filter">
+						    <div class="f_what">
+						        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>&nbsp;no filter
+						    </div>
+						    <div class="f_where">
+                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;no filter</span>&nbsp;
+                            </div>
+                            <div class="f_when">
+                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;last5minutes</span>
+                            </div>
+						</div>
+					</div>
+                    
+                    <div class="col-md-2" id="btn_traffic_1_hour">
+                        <div class="what">
+                              <span class="glyphicon glyphicon-road" aria-hidden="true"></span>
+                              <span class="value">Traffic</span>
+                        </div>
+                        <div class="count">-</div>
+                        <div class="filter">
+                            <div class="f_what">
+                                <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>&nbsp;traffic
+                            </div>
+                            <div class="f_where">
+                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;no filter</span>&nbsp;
+                            </div>
+                            <div class="f_when">
+                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;last30minutes</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2" id="btn_nature_2_days">
+                        <div class="what">
+                              <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+                              <span class="value">Natural</span>
+                        </div>
+                        <div class="count">-</div>
+                        <div class="filter">
+                            <div class="f_what">
+                                <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>&nbsp;nature
+                            </div>
+                            <div class="f_where">
+                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;no filter</span>&nbsp;
+                            </div>
+                            <div class="f_when">
+                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;last48hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2" id="btn_weather_12_hours">
+                        <div class="what">
+                              <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>
+                              <span class="value">Weather</span>
+                        </div>
+                        <div class="count">-</div>
+                        <div class="filter">
+                            <div class="f_what">
+                                <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>&nbsp;weather
+                            </div>
+                            <div class="f_where">
+                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;20km around Paris</span>&nbsp;
+                            </div>
+                            <div class="f_when">
+                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;last12hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2" id="btn_health_blood_12_hours">
+                        <div class="what">
+                              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                              <span class="value">Health</span>
+                        </div>
+                        <div class="count">-</div>
+                        <div class="filter">
+                            <div class="f_what">
+                                <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>&nbsp;health.blood.collect
+                            </div>
+                            <div class="f_where">
+                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;no filter</span>&nbsp;
+                            </div>
+                            <div class="f_when">
+                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;last12hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2" id="btn_transports_6_hours">
+                        <div class="what">
+                              <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>
+                              <span class="value">Transport</span>
+                        </div>
+                        <div class="count">-</div>
+                        <div class="filter">
+                            <div class="f_what">
+                                <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>&nbsp;public_transport
+                            </div>
+                            <div class="f_where">
+                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;no filter</span>&nbsp;
+                            </div>
+                            <div class="f_when">
+                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>&nbsp;last6hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+				</div>
+				<div id="map">
+				    
+				</div>
+			</div>
+		</div>
+		
+	</body>
+</html>
