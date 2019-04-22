@@ -101,7 +101,7 @@ function updateMap(targetId, events, fitBounds) {
     
     evt.layer.bringToFront();
     
-    if(fitBounds == true) {
+    if(events.count > 0 && fitBounds == true) {
         // console.log(fitBounds);
         map.fitBounds(evt.layer.getBounds());    
     }
