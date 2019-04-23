@@ -8,7 +8,7 @@ var preDefinedEvents =[
     {"btn":"btn_traffic_1_hour", "glyph":"road", "reqDatas":jQuery.param({"when":"last30minutes", "what":"traffic", "near":"2.36,48.85,20000"}), "layer": L.geoJson()},
     {"btn":"btn_nature_2_days", "glyph":"globe", "reqDatas":jQuery.param({"when":"last48hours", "what":"nature"}), "layer": L.geoJson()},
     {"btn":"btn_weather_12_hours", "glyph":"cloud", "reqDatas":jQuery.param({"when":"last12hours", "what":"weather", "near":"2.36,48.85,20000"}), "layer": L.geoJson()},
-    {"btn":"btn_health_blood_12_hours", "glyph":"heart", "reqDatas":jQuery.param({"when":"last12hours", "what":"health.blood.collect"}), "layer": L.geoJson()},
+    {"btn":"btn_health_blood_12_hours", "glyph":"sport", "reqDatas":jQuery.param({"what":"sport.orienteering", "when": "nextyear"}), "layer": L.geoJson()},
     {"btn":"btn_transports_6_hours", "glyph":"plane", "reqDatas":jQuery.param({"when":"last6hours", "what":"public_transport"}), "layer": L.geoJson()}
 ];
 
