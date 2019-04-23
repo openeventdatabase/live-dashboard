@@ -4,7 +4,7 @@ pages:
   stage: deploy
   script:
   - mkdir public
-  - cp -r dashboard.css dashboard.js index.html Leaflet.Icon.Glyth.js img public/
+  - cp -r dashboard.css dashboard.js index.html Leaflet.Icon.Glyph.js img public/
   artifacts:
     paths:
     - public
