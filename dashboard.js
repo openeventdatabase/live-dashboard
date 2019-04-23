@@ -8,7 +8,7 @@ var preDefinedEvents =[
     {"btn":"btn_traffic_1_hour", "glyph":"road", "reqDatas":jQuery.param({"when":"last30minutes", "what":"traffic", "near":"2.36,48.85,20000"}), "layer": L.geoJson()},
     {"btn":"btn_nature_2_days", "glyph":"globe", "reqDatas":jQuery.param({"when":"last48hours", "what":"nature"}), "layer": L.geoJson()},
     {"btn":"btn_weather_12_hours", "glyph":"cloud", "reqDatas":jQuery.param({"when":"last12hours", "what":"weather", "near":"2.36,48.85,20000"}), "layer": L.geoJson()},
-    {"btn":"btn_health_blood_12_hours", "glyph":"heart", "reqDatas":jQuery.param({"when":"last12hours", "what":"health.blood.collect"}), "layer": L.geoJson()},
+    {"btn":"btn_health_blood_12_hours", "glyph":"sport", "reqDatas":jQuery.param({"what":"sport.orienteering", "when": "nextyear"}), "layer": L.geoJson()},
     {"btn":"btn_transports_6_hours", "glyph":"plane", "reqDatas":jQuery.param({"when":"last6hours", "what":"public_transport"}), "layer": L.geoJson()}
 ];
 
@@ -29,43 +29,14 @@ function init() {
 
     updateAllEvents();
 
-    $("#btn_total_5_min").click(function(event) {
-        var reqDatas =  jQuery.param({"when":"last5minutes"});
-        clearCount('btn_total_5_min');clearLayer('btn_total_5_min');
-        updateEvents(reqDatas, 'btn_total_5_min', true);
-    });
-    
-    $("#btn_traffic_1_hour").click(function(event) {
-        var reqDatas =  jQuery.param({"when":"last30minutes", "what":"traffic", "near":"2.36,48.85,20000"});
-        clearCount('btn_traffic_1_hour');clearLayer('btn_traffic_1_hour');
-        updateEvents(reqDatas, 'btn_traffic_1_hour', true);
-    });
-    
-    
-    $("#btn_nature_2_days").click(function(event) {
-        var reqDatas =  jQuery.param({"when":"last48hours", "what":"nature"});
-        clearCount('btn_nature_2_days');clearLayer('btn_nature_2_days');
-        updateEvents(reqDatas, 'btn_nature_2_days', true);
-    });    
-    
-    $("#btn_weather_12_hours").click(function(event) {
-        var reqDatas =  jQuery.param({"when":"last12hours", "what":"weather", "near":"2.36,48.85,20000"});
-        clearCount('btn_weather_12_hours');clearLayer('btn_weather_12_hours');
-        updateEvents(reqDatas, 'btn_weather_12_hours', true);
-    });        
-
-    $("#btn_health_blood_12_hours").click(function(event) {
-        var reqDatas =  jQuery.param({"when":"last12hours", "what":"health.blood.collect"});
-        clearCount('btn_health_blood_12_hours');clearLayer('btn_health_blood_12_hours');
-        updateEvents(reqDatas, 'btn_health_blood_12_hours', true);
-    });
-    
-    $("#btn_transports_6_hours").click(function(event) {
-        var reqDatas =  jQuery.param({"when":"last6hours", "what":"public_transport"});
-        clearCount('btn_transports_6_hours');clearLayer('btn_transports_6_hours');
-        updateEvents(reqDatas, 'btn_transports_6_hours', true);
-        
-    });
+    for (var i = 0; i < preDefinedEvents.length; i++) {
+        const e = preDefinedEvents[i];
+        const id = e["btn"];
+        $("#" + id).click(function(event) {
+            clearCount(id);clearLayer(id);
+            updateEvents(e["reqDatas"], id, true);
+        });
+    }
 }
 
 function updateAllEvents() {
@@ -130,7 +101,7 @@ function updateMap(targetId, events, fitBounds) {
     
     evt.layer.bringToFront();
     
-    if(fitBounds == true) {
+    if(events.count > 0 && fitBounds == true) {
         // console.log(fitBounds);
         map.fitBounds(evt.layer.getBounds());    
     }
