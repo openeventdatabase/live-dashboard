@@ -66,16 +66,20 @@ def process_csv():
 
 
 def submit_event(data):
-    print(data)
+    # print(data)
     url = "http://api.openeventdatabase.org/event"
 
     resp = requests.post(url, data=data)
 
-    if resp.status_code >= 400:
-        print(f"Event could not be created: {resp.text}")
+    if resp.status_code == 201:
+        print(f"Event created successfully ({resp.status_code}): {resp.text}")
+    elif resp.status_code == 409:
+        print(f"Event already exists, skipping: {resp.text}")
+    elif resp.status_code >= 400:
+        print(f"Event could not be created ({resp.status_code}): {resp.text}")
         sys.exit(1)
     else:
-        print(f"Event created successfully ({resp.status_code}): {resp.text}")
+        print(f"Unknown response ({resp.status_code}): {resp.text}")
 
 
 if __name__ == "__main__":
